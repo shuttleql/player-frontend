@@ -72,5 +72,11 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './src/template.html'
 		}),
-	]
+	],
+	node: {
+		console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+	}
 };

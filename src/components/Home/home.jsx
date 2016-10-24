@@ -7,35 +7,53 @@ import Court from '../Court/court.jsx'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import axios from 'axios';
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.courtData = [
-      {
-        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        courtName: 'Court 1',
-        courtId: 1
-      },
-      {
-        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        courtName: 'Court 2',
-        courtId: 2
-      },
-      {
-        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        courtName: 'Court 3',
-        courtId: 3
-      },
-      {
-        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        courtName: 'Court 4',
-        courtId: 4
-      }
-    ];
+    this.state = {
+      courtData: [
+        // {
+        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        //   courtName: 'Court 1',
+        //   courtId: 1
+        // },
+        // {
+        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        //   courtName: 'Court 2',
+        //   courtId: 2
+        // },
+        // {
+        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        //   courtName: 'Court 3',
+        //   courtId: 3
+        // },
+        // {
+        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        //   courtName: 'Court 4',
+        //   courtId: 4
+        // }
+      ]
+    };
+  }
+
+  componentDidMount = () => {
+    this.updateMatches();
+  }
+
+  updateMatches = () => {
+    console.log("calling");
+    axios
+      .get('http://localhost:3000/shared/game')
+      .then((res) => {
+        console.log(res);
+        this.setState({courtData: res.data});
+      });
   }
 
   playersToString = (players) => {
@@ -57,7 +75,7 @@ export default class Home extends React.Component {
       <div>
       <MuiThemeProvider>
         <div className={s.formContainer}>
-          {this.courtData.map((court) => (
+          {this.state.courtData.map((court) => (
             <Card key={court.courtName} className={s.formElement}>
               <CardHeader
                     title={court.courtName}

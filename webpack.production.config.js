@@ -63,5 +63,11 @@ module.exports = {
 			title: 'Webpack App'
 		}),
 		new webpack.optimize.DedupePlugin()
-	]
+	],
+	node: {
+		console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+	}
 };

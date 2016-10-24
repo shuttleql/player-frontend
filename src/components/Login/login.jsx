@@ -7,17 +7,19 @@ import Register from '../Register/register.jsx'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import axios from 'axios';
+
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       password: '',
     };
   }
 
   handleUsernameChange = (e) => {
-    this.setState({username: e.target.value});
+    this.setState({email: e.target.value});
   }
 
   handlePasswordChange = (e) => {
@@ -25,15 +27,25 @@ export default class Login extends React.Component {
   }
 
   getValidationState = (e) => {
-    if (this.state.username && this.state.password) {
+    if (this.state.email && this.state.password) {
       return 'success';
     }
     return 'error';
   }
 
   onLoginButtonClick = (e) => {
-    window.location.pathname = '/home';
-    console.log('login button clicked');
+
+    axios
+      .post('http://localhost:3000/shared/auth', {
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.status == 200) {
+          window.location.pathname = '/home';
+        }
+      });
   }
 
   onRegisterButtonClick = (e) => {
@@ -48,7 +60,7 @@ export default class Login extends React.Component {
           <div className={s.loginForm}>
             <h3 className={styles.centerText}>Welcome to ShuttleQL</h3>
               <TextField
-                floatingLabelText="username"
+                floatingLabelText="email"
                 type='text'
                 onChange={this.handleUsernameChange}
                 fullWidth={true}
