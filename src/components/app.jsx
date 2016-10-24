@@ -3,6 +3,7 @@ import styles from '../css/index.scss';
 import React from 'react';
 
 import Header from './Header/header.jsx';
+import Footer from './Footer/footer.jsx';
 import Login from './Login/Login.jsx';
 
 export default class App extends React.Component {
@@ -11,8 +12,8 @@ export default class App extends React.Component {
       <div>
         <div id='container'>
           <Header title={'ShuttleQL'} />
-          <div id='main'>
-          </div>
+          <div id='main'></div>
+          <Footer/>
         </div>
       </div>
     )

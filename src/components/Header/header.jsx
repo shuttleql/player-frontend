@@ -1,13 +1,10 @@
+import s from './header.scss'
 import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React from 'react';
 import {AppBar} from 'material-ui'
 
-import customTheme from '../../theme/customTheme.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
-import {headerStyle} from './header.style.js';
 
 export default class Header extends React.Component {
   showMenu = (e) => {
@@ -21,6 +18,7 @@ export default class Header extends React.Component {
         <AppBar
           title={this.props.title}
           onLeftIconButtonTouchTap={this.showMenu}
+          className={s.navBar}
         />
         </MuiThemeProvider>
       </div>

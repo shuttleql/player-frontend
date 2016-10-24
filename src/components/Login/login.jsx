@@ -5,9 +5,7 @@ import React from 'react';
 import {TextField, RaisedButton} from 'material-ui'
 import Register from '../Register/register.jsx'
 
-import customTheme from '../../theme/customTheme.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 export default class Login extends React.Component {
   constructor(props) {

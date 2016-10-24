@@ -36,15 +36,6 @@ export default class Home extends React.Component {
         courtId: 4
       }
     ];
-    this.customStyles = {
-      root: {
-        width: '100%'
-      },
-      card: {
-        width: '100%',
-        marginBottom: 8
-      }
-    };
   }
 
   playersToString = (players) => {
@@ -65,9 +56,9 @@ export default class Home extends React.Component {
     return (
       <div>
       <MuiThemeProvider>
-        <div style={this.customStyles.root}>
+        <div className={s.formContainer}>
           {this.courtData.map((court) => (
-            <Card key={court.courtName} style={this.customStyles.card}>
+            <Card key={court.courtName} className={s.formElement}>
               <CardHeader
                     title={court.courtName}
                     subtitle={this.teamDataToString(court)}

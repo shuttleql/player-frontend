@@ -35,8 +35,8 @@ export default class Register extends React.Component {
       <MuiThemeProvider>
         <div>
           <FlatButton
-            style={buttonStyle}
             label='How do I register?'
+            className={s.registerButton}
             secondary={true}
             onTouchTap={this.openDialog}
           />
