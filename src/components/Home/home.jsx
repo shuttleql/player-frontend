@@ -1,0 +1,87 @@
+import s from './home.scss'
+import styles from '../../css/index.scss';
+import ClassName from 'classname';
+import React from 'react';
+import {Card, CardHeader, CardText, CardMedia} from 'material-ui'
+import Court from '../Court/court.jsx'
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.courtData = [
+      {
+        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        courtName: 'Court 1',
+        courtId: 1
+      },
+      {
+        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        courtName: 'Court 2',
+        courtId: 2
+      },
+      {
+        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        courtName: 'Court 3',
+        courtId: 3
+      },
+      {
+        team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
+        team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
+        courtName: 'Court 4',
+        courtId: 4
+      }
+    ];
+    this.customStyles = {
+      root: {
+        width: '100%'
+      },
+      card: {
+        width: '100%',
+        marginBottom: 8
+      }
+    };
+  }
+
+  playersToString = (players) => {
+    var s = '';
+    for (var player of players) {
+      s += player.name + ', ';
+    }
+    return s.substr(0,s.length-2);
+  }
+
+  teamDataToString = (court) => {
+    var s = this.playersToString(court.team1) + ', ';
+    s += this.playersToString(court.team2);
+    return s;
+  }
+
+  render() {
+    return (
+      <div>
+      <MuiThemeProvider>
+        <div style={this.customStyles.root}>
+          {this.courtData.map((court) => (
+            <Card key={court.courtName} style={this.customStyles.card}>
+              <CardHeader
+                    title={court.courtName}
+                    subtitle={this.teamDataToString(court)}
+                    showExpandableButton={true}
+                    actAsExpander={true}
+                  />
+              <CardText expandable={true}>
+                <Court courtName={court.courtName} team1={court.team1} team2={court.team2} />
+              </CardText>
+            </Card>
+          ))}
+        </div>
+        </MuiThemeProvider>
+      </div>
+    )
+  }
+}

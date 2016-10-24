@@ -1,9 +1,13 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './login.scss'
-import styles from '../css/index.scss';
+import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React from 'react';
-import {Button, FormGroup, FormControl} from 'react-bootstrap'
+import {TextField, RaisedButton} from 'material-ui'
+import Register from '../Register/register.jsx'
+
+import customTheme from '../../theme/customTheme.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -30,6 +34,7 @@ export default class Login extends React.Component {
   }
 
   onLoginButtonClick = (e) => {
+    window.location.pathname = '/home';
     console.log('login button clicked');
   }
 
@@ -40,42 +45,33 @@ export default class Login extends React.Component {
   render() {
     return (
       <div>
+        <MuiThemeProvider>
         <div className={ClassName(styles.centerBlock, s.container)}>
           <div className={s.loginForm}>
             <h3 className={styles.centerText}>Welcome to ShuttleQL</h3>
-            <FormGroup 
-              validationState={this.getValidationState()}
-              bsSize='lg'
-            >
-              <FormControl
+              <TextField
+                floatingLabelText="username"
                 type='text'
-                value={this.state.value}
-                placeholder='username'
                 onChange={this.handleUsernameChange}
+                fullWidth={true}
                 autoFocus
               />
-              <FormControl
+              <TextField
+                floatingLabelText="password"
                 type='password'
-                value={this.state.value}
-                placeholder='password'
                 onChange={this.handlePasswordChange}
+                fullWidth={true}
               />
-              <Button
-                bsClass={ClassName(s.formButton, 'btn')}
-                bsStyle='primary'
-                type='submit'
+              <RaisedButton
+                className={s.formElement}
+                label="Login"
+                primary={true}
                 onClick={this.onLoginButtonClick}
-              >
-                Login
-              </Button>
-            </FormGroup>
+              />
           </div>
-
-          <div className={s.registerForm}>
-            <p className={styles.centerText}>Don't have an account?</p>
-            <a href='/register'><p className={styles.centerText}>How do I register?</p></a>
-          </div>
+          <Register />
         </div>
+        </MuiThemeProvider>
       </div>
     )
   }
