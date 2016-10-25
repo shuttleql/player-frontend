@@ -1,0 +1,16 @@
+@import '../../css/colors';
+
+.footer {
+  width: 100%;
+  height: 100px;
+  background-color: black;
+  margin-top: 8px;
+}
+
+.footerMessage {
+  width: 100%;
+  text-align: center;
+  color: $secondaryColor;
+  padding-top: 24px;
+  font-size: 12px;
+}

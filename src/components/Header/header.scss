@@ -1,0 +1,15 @@
+@import '../../css/colors';
+
+.navBar {
+  width: 100%;
+  margin-bottom: 8px;
+  background-color: $primaryColor !important;
+}
+
+.navBar h1 {
+  color: $secondaryColor !important;
+}
+
+.navBar button div svg {
+  color: $secondaryColor !important;
+}

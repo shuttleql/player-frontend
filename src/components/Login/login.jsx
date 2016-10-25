@@ -1,21 +1,25 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './login.scss'
-import styles from '../css/index.scss';
+import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React from 'react';
-import {Button, FormGroup, FormControl} from 'react-bootstrap'
+import {TextField, RaisedButton} from 'material-ui'
+import Register from '../Register/register.jsx'
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import axios from 'axios';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       password: '',
     };
   }
 
   handleUsernameChange = (e) => {
-    this.setState({username: e.target.value});
+    this.setState({email: e.target.value});
   }
 
   handlePasswordChange = (e) => {
@@ -23,14 +27,25 @@ export default class Login extends React.Component {
   }
 
   getValidationState = (e) => {
-    if (this.state.username && this.state.password) {
+    if (this.state.email && this.state.password) {
       return 'success';
     }
     return 'error';
   }
 
   onLoginButtonClick = (e) => {
-    console.log('login button clicked');
+
+    axios
+      .post('http://localhost:3000/shared/auth', {
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.status == 200) {
+          window.location.pathname = '/home';
+        }
+      });
   }
 
   onRegisterButtonClick = (e) => {
@@ -40,42 +55,33 @@ export default class Login extends React.Component {
   render() {
     return (
       <div>
+        <MuiThemeProvider>
         <div className={ClassName(styles.centerBlock, s.container)}>
           <div className={s.loginForm}>
             <h3 className={styles.centerText}>Welcome to ShuttleQL</h3>
-            <FormGroup 
-              validationState={this.getValidationState()}
-              bsSize='lg'
-            >
-              <FormControl
+              <TextField
+                floatingLabelText="email"
                 type='text'
-                value={this.state.value}
-                placeholder='username'
                 onChange={this.handleUsernameChange}
+                fullWidth={true}
                 autoFocus
               />
-              <FormControl
+              <TextField
+                floatingLabelText="password"
                 type='password'
-                value={this.state.value}
-                placeholder='password'
                 onChange={this.handlePasswordChange}
+                fullWidth={true}
               />
-              <Button
-                bsClass={ClassName(s.formButton, 'btn')}
-                bsStyle='primary'
-                type='submit'
+              <RaisedButton
+                className={s.formElement}
+                label="Login"
+                primary={true}
                 onClick={this.onLoginButtonClick}
-              >
-                Login
-              </Button>
-            </FormGroup>
+              />
           </div>
-
-          <div className={s.registerForm}>
-            <p className={styles.centerText}>Don't have an account?</p>
-            <a href='/register'><p className={styles.centerText}>How do I register?</p></a>
-          </div>
+          <Register />
         </div>
+        </MuiThemeProvider>
       </div>
     )
   }
