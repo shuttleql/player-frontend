@@ -3,7 +3,7 @@ import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React from 'react';
 import {Card, CardHeader, CardText, CardMedia} from 'material-ui'
-import Court from '../Court/court.jsx'
+import Court from '../Court/court'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

@@ -2,9 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../css/index.scss';
 import React from 'react';
 
-import Header from './Header/header.jsx';
-import Footer from './Footer/footer.jsx';
-import Login from './Login/Login.jsx';
+import Header from './Header/header';
+import Footer from './Footer/footer';
+import Login from './Login/Login';
 
 export default class App extends React.Component {
   render() {

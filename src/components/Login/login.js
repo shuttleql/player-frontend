@@ -3,7 +3,7 @@ import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React from 'react';
 import {TextField, RaisedButton} from 'material-ui'
-import Register from '../Register/register.jsx'
+import Register from '../Register/register'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
