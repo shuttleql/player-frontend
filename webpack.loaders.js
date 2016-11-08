@@ -1,11 +1,11 @@
 module.exports = [
 	{
-		test: /\.jsx?$/,
+		test: /\.js?$/,
 		exclude: /(node_modules|bower_components|public)/,
 		loaders: ['react-hot-loader/webpack']
 	},
 	{
-		test: /\.jsx?$/,
+		test: /\.js?$/,
 		exclude: /(node_modules|bower_components|public)/,
 		loader: 'babel',
 		query: {
