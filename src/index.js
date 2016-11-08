@@ -12,12 +12,20 @@ import Home from './components/Home/home';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+function auth(nextState, replace) {
+  if (!localStorage.token) {
+    replace({
+      pathname: '/login'
+    });
+  }
+}
+
 render(<App/>, document.querySelector("#root"));
 
 render((
   <Router history={browserHistory}>
     <Redirect from='/' to='/login'/>
     <Route path="/login" component={Login}/>
-    <Route path="/home" component={Home}/>
+    <Route path="/home" component={Home} onEnter={auth}/>
   </Router>
 ), document.getElementById('main'))
