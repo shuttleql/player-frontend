@@ -43,7 +43,8 @@ export default class Login extends React.Component {
       .then((res) => {
         console.log(res);
         if (res.data.status == 200) {
-          localStorage.token = res.data.token || 'randomtoken';
+          var token = res.data.token || 'randomtoken';
+          localStorage.setItem('token', token);
           window.location.pathname = '/home';
         }
       });
