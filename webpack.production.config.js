@@ -60,7 +60,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/template.html',
-			title: 'Webpack App'
+			title: 'ShuttleQL Player Dashboard'
 		}),
 		new webpack.optimize.DedupePlugin()
 	],
