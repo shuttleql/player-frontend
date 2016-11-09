@@ -1,15 +1,18 @@
 import s from './login.scss'
 import styles from '../../css/index.scss';
 import ClassName from 'classname';
-import React from 'react';
+import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 import {TextField, RaisedButton} from 'material-ui'
 import Register from '../Register/register'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import axios from 'axios';
+import Auth from '../../auth';
 
-export default class Login extends React.Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +29,7 @@ export default class Login extends React.Component {
     this.setState({password: e.target.value});
   }
 
+  // TODO(c9dong): Make use of this after login is implemented
   getValidationState = (e) => {
     if (this.state.email && this.state.password) {
       return 'success';
@@ -34,24 +38,14 @@ export default class Login extends React.Component {
   }
 
   onLoginButtonClick = (e) => {
-
-    axios
-      .post('http://localhost:3000/shared/auth', {
-        email: this.state.email,
-        password: this.state.password
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data.status == 200) {
-          var token = res.data.token || 'randomtoken';
-          localStorage.setItem('token', token);
-          window.location.pathname = '/home';
-        }
-      });
-  }
-
-  onRegisterButtonClick = (e) => {
-    console.log('register button clicked');
+    Auth.login(this.state.email, this.state.password, (success) => {
+      if (success) {
+        browserHistory.push('/home');
+      } else {
+        // FIXME: Do something?
+        console.log('error');
+      }
+    });
   }
 
   render() {
@@ -88,3 +82,20 @@ export default class Login extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

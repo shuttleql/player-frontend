@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from './config';
 
-module.exports = {
+export default {
   login(email, password, cb) {
     axios
       .post(`${config.GATEWAY_URL}/shared/auth`, {
@@ -12,7 +12,8 @@ module.exports = {
         const response = res.data;
 
         if (response.status === 200) {
-          localStorage.setItem('token', 'dummy');
+          const token = response.token || 'randomtoken';
+          localStorage.setItem('token', token);
           cb && cb(true);
         } else {
           cb && cb(false);
