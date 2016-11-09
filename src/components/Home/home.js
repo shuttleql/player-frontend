@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Card, CardHeader, CardText, CardMedia} from 'material-ui'
 import Court from '../Court/court'
-import {fetchSessionMatches} from '../../actions';
+import Match from '../../actions/matches/match';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -65,7 +65,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchMatches: () => {
-      dispatch(fetchSessionMatches());
+      dispatch(Match.fetchSessionMatches());
     }
   };
 };
