@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from '../../config';
-import types from './types';
+import * as types from './types';
 import request from '../request';
 
 export default {
