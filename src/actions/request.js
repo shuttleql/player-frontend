@@ -1,4 +1,4 @@
-import axios, { defaults } from 'axios'
+import axios from 'axios';
 import token from '../token';
 
 export default {
