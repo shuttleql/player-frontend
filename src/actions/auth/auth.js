@@ -1,27 +1,24 @@
 import axios from 'axios';
-import config from './config';
+import config from '../../config';
+import request from '../request';
+import tokenManager from '../../tokenManager';
 
 export default {
   login(email, password, cb) {
-    axios
+    request
+      .getInstance()
       .post(`${config.GATEWAY_URL}/shared/auth`, {
         email: email,
         password: password
       })
       .then((res) => {
-        const response = res.data;
-
-        if (response.status === 200) {
-          const token = response.token || 'randomtoken';
-          localStorage.setItem('token', token);
+        if (res.status == 200) {
+          var authToken = res.data.token;
+          tokenManager.storeToken(authToken);
           cb && cb(true);
         } else {
           cb && cb(false);
         }
       })
-  },
-
-  getToken() {
-    return localStorage.token
   }
 }

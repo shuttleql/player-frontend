@@ -10,7 +10,7 @@ import Register from '../Register/register'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import axios from 'axios';
-import Auth from '../../auth';
+import Auth from '../../actions/auth/auth';
 
 class Login extends Component {
   constructor(props) {
