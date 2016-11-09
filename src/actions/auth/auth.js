@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../../config';
 import request from '../request';
-import token from '../../token';
+import tokenManager from '../../tokenManager';
 
 export default {
   login(email, password, cb) {
@@ -14,7 +14,7 @@ export default {
       .then((res) => {
         if (res.status == 200) {
           var authToken = res.data.token;
-          token.storeToken(authToken);
+          tokenManager.storeToken(authToken);
           cb && cb(true);
         } else {
           cb && cb(false);

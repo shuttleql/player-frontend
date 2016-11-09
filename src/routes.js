@@ -3,10 +3,10 @@ import { Route, IndexRedirect } from 'react-router';
 import App from './components/app';
 import Login from './components/Login/login';
 import Home from './components/Home/home';
-import token from './token';
+import tokenManager from './tokenManager';
 
 function requireAuth(nextState, replace) {
-  if (!token.getToken()) {
+  if (!tokenManager.getToken()) {
     replace({
       pathname: '/login'
     });
