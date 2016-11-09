@@ -1,59 +1,20 @@
 import s from './home.scss'
 import styles from '../../css/index.scss';
 import ClassName from 'classname';
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {Card, CardHeader, CardText, CardMedia} from 'material-ui'
 import Court from '../Court/court'
+import {fetchSessionMatches} from '../../actions';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import axios from 'axios';
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      courtData: [
-        // {
-        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        //   courtName: 'Court 1',
-        //   courtId: 1
-        // },
-        // {
-        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        //   courtName: 'Court 2',
-        //   courtId: 2
-        // },
-        // {
-        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        //   courtName: 'Court 3',
-        //   courtId: 3
-        // },
-        // {
-        //   team1: [{id: 1, name: 'David Dong'}, {id:2, name: 'Jason Fang'}],
-        //   team2: [{id: 3, name: 'Clement Hoang'}, {id:4, name: 'Tony Lu'}],
-        //   courtName: 'Court 4',
-        //   courtId: 4
-        // }
-      ]
-    };
-  }
-
+class Home extends Component {
+  
   componentDidMount = () => {
-    this.updateMatches();
-  }
-
-  updateMatches = () => {
-    console.log("calling");
-    axios
-      .get('http://localhost:3000/shared/game')
-      .then((res) => {
-        console.log(res);
-        this.setState({courtData: res.data});
-      });
+    this.props.fetchMatches();
   }
 
   playersToString = (players) => {
@@ -73,9 +34,9 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-      <MuiThemeProvider>
+        <MuiThemeProvider>
         <div className={s.formContainer}>
-          {this.state.courtData.map((court) => (
+          {this.props.courtData.map((court) => (
             <Card key={court.courtName} className={s.formElement}>
               <CardHeader
                     title={court.courtName}
@@ -94,3 +55,22 @@ export default class Home extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    courtData: state.matches
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchMatches: () => {
+      dispatch(fetchSessionMatches());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);

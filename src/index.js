@@ -1,31 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, Link, browserHistory, Redirect } from 'react-router'
-
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-import App from './components/app';
-import Login from './components/Login/login';
-import Home from './components/Home/home';
+import configureStore from './store/configureStore';
+import Root from './containers/Root';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-function auth(nextState, replace) {
-  if (!localStorage.token) {
-    replace({
-      pathname: '/login'
-    });
-  }
-}
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 
-render(<App/>, document.querySelector("#root"));
-
-render((
-  <Router history={browserHistory}>
-    <Redirect from='/' to='/login'/>
-    <Route path="/login" component={Login}/>
-    <Route path="/home" component={Home} onEnter={auth}/>
-  </Router>
-), document.getElementById('main'))
+render(
+    <Root store={store} history={history} />,
+    document.querySelector("#root")
+);
