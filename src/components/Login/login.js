@@ -40,7 +40,7 @@ class Login extends Component {
   onLoginButtonClick = (e) => {
     Auth.login(this.state.email, this.state.password, (success) => {
       if (success) {
-        browserHistory.push('/home');
+        browserHistory.push('/dashboard');
       } else {
         // FIXME: Do something?
         console.log('error');
