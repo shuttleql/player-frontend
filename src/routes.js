@@ -8,7 +8,6 @@ import Matches from './components/Matches/matches';
 import tokenManager from './tokenManager';
 
 function requireAuth(nextState, replace) {
-  console.log(tokenManager.getToken());
   if (!tokenManager.getToken()) {
     replace({
       pathname: '/login'

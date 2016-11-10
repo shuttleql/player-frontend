@@ -42,7 +42,7 @@ class Dashboard extends Component {
       <MuiThemeProvider>
         <div>
           <AppBar
-            title="ShuttleQL Player Dashboard - Jason Fang"
+            title="ShuttleQL Player Dashboard"
             iconElementRight={
               <FlatButton
                 label="Logout"
