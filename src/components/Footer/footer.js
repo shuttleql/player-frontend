@@ -1,42 +1,25 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import ClassName from 'classname';
-import {AppBar} from 'material-ui';
+import s from './footer.scss'
 import styles from '../../css/index.scss';
+import ClassName from 'classname';
+import React from 'react';
+import {AppBar} from 'material-ui'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-class Footer extends React.Component {
+export default class Footer extends React.Component {
+  showMenu = (e) => {
+    console.log('menu clicked');
+  }
+
   render() {
     return (
       <div>
         <MuiThemeProvider>
-          <div>
-            <footer>
-              {this.props.children}
-            </footer>
-          </div>
+        <div className={s.footer}>
+          <p className={s.footerMessage}>Created by David Dong, Jason Fang, Clement Hoang, Tony Lu</p>
+        </div>
         </MuiThemeProvider>
       </div>
     )
   }
 }
-
-Footer.propTypes = {
-  children: PropTypes.object
-};
-
-const mapStateToProps = (state) => {
-  return {
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Footer);
