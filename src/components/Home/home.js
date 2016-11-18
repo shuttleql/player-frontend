@@ -4,6 +4,8 @@ import ClassName from 'classname';
 import React from 'react';
 import {Avatar, List, ListItem, Subheader, Divider} from 'material-ui';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+
 import EmailIcon from 'material-ui/svg-icons/communication/email';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import GenderIcon from 'material-ui/svg-icons/notification/wc';
@@ -20,56 +22,52 @@ class Home extends React.Component {
   }
 
   render() {
-    const userData = this.props.userData ? this.props.userData : {
-      name: 'David Dong',
-      gender: 'Male',
-      email: 'david.dong@gmail.com',
-      level: 5,
-      preference: 'doubles'
-    };
-
     return (
       <div>
-        <div className={ClassName(s.profileImage)}>
-          <img 
-            src="http://www.destination360.com/north-america/us/california/san-francisco/images/s/golden-gate-bridge.jpg"
-          />
-          <div className={ClassName(s.avatarContainer)}>
-            <Avatar
-              size={50}
-            > DD </Avatar>
-            <h2>David Dong</h2>
-            <p>Level 5</p>
+        { _.isEmpty(this.props.userData) ? '' :
+        <div>
+          <div className={ClassName(s.profileImage)}>
+            <img 
+              src="http://www.destination360.com/north-america/us/california/san-francisco/images/s/golden-gate-bridge.jpg"
+            />
+            <div className={ClassName(s.avatarContainer)}>
+              <Avatar
+                size={50}
+              > {this.props.userData.initial} </Avatar>
+              <h2>{this.props.userData.name}</h2>
+              <p>{'Level ' + this.props.userData.level}</p>
+            </div>
           </div>
-        </div>
 
-        <List>
-          <Subheader>Profile</Subheader>
-          <ListItem
-            leftIcon={<PersonIcon/>}
-            primaryText={userData.name}
-          />
-          <Divider/>
-          <ListItem
-            leftIcon={<GenderIcon/>}
-            primaryText={userData.gender}
-          />
-          <Divider/>
-          <ListItem
-            leftIcon={<EmailIcon/>}
-            primaryText={userData.email}
-          />
-          <Divider/>
-          <ListItem
-            leftIcon={<LevelIcon/>}
-            primaryText={userData.level}
-          />
-          <Divider />
-          <ListItem
-            leftIcon={<PreferenceIcon/>}
-            primaryText={userData.preference}
-          />
-        </List>
+          <List>
+            <Subheader>Profile</Subheader>
+            <ListItem
+              leftIcon={<PersonIcon/>}
+              primaryText={this.props.userData.name}
+            />
+            <Divider/>
+            <ListItem
+              leftIcon={<GenderIcon/>}
+              primaryText={this.props.userData.gender}
+            />
+            <Divider/>
+            <ListItem
+              leftIcon={<EmailIcon/>}
+              primaryText={this.props.userData.email}
+            />
+            <Divider/>
+            <ListItem
+              leftIcon={<LevelIcon/>}
+              primaryText={this.props.userData.level}
+            />
+            <Divider />
+            <ListItem
+              leftIcon={<PreferenceIcon/>}
+              primaryText={this.props.userData.preference}
+            />
+          </List>
+          </div>
+        }
       </div>
     )
   }
