@@ -1,4 +1,3 @@
-import axios from 'axios';
 import config from '../../config';
 import request from '../request';
 import tokenManager from '../../tokenManager';

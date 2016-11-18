@@ -1,11 +1,11 @@
-import s from './login.scss'
+import s from './login.scss';
 import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import {TextField, RaisedButton} from 'material-ui'
-import Register from '../Register/register'
+import {TextField, RaisedButton} from 'material-ui';
+import Register from '../Register/register';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

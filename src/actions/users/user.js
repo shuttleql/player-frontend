@@ -3,20 +3,22 @@ import * as types from '../types';
 import request from '../request';
 
 export default {
-  fetchSessionMatches() {
+  fetchUserInfo(id) {
     return (dispatch) => {
       request
         .getInstance()
-        .get(`${config.GATEWAY_URL}/shared/game`)
+        .get(`${config.GATEWAY_URL}/shared/users/info`)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status == 200) {
             dispatch({
-              type: types.RECEIVE_SESSION_MATCHES,
-              courtData: res.data
+              type: types.GET_USER_INFO,
+              userData: res.data
             });
           }
         })
-        .catch((err) => { console.log(err) });
-    };
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 }
