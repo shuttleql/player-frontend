@@ -35,7 +35,7 @@ class Home extends React.Component {
                 size={50}
               > {this.props.userData.initial} </Avatar>
               <h2>{this.props.userData.name}</h2>
-              <p>{'Level ' + this.props.userData.level}</p>
+              <p>Level {this.props.userData.level}</p>
             </div>
           </div>
 
