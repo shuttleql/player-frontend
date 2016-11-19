@@ -3,22 +3,22 @@ import * as types from '../types';
 import request from '../request';
 
 export default {
-  fetchUserInfo() {
+  fetchSessionStatus() {
     return (dispatch) => {
       request
         .getInstance()
-        .get(`${config.GATEWAY_URL}/shared/users/info`)
+        .get(`${config.GATEWAY_URL}/shared/session/current`)
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status === 200) {
             dispatch({
-              type: types.GET_USER_INFO,
-              userData: res.data
+              type: types.SESSION_STATUS,
+              sessionStatus: res.data
             });
           }
         })
         .catch((err) => {
           console.log(err);
         });
-    }
+    };
   }
 }
