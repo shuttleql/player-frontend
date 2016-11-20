@@ -4,6 +4,7 @@ import ClassName from 'classname';
 import React from 'react';
 import {Avatar, List, ListItem, Subheader, Divider} from 'material-ui';
 import { connect } from 'react-redux';
+import Status from '../Status/status';
 import _ from 'lodash';
 
 import EmailIcon from 'material-ui/svg-icons/communication/email';
@@ -35,9 +36,12 @@ class Home extends React.Component {
                 size={50}
               > {this.props.userData.initial} </Avatar>
               <h2>{this.props.userData.name}</h2>
-              <p>Level {this.props.userData.level}</p>
             </div>
           </div>
+
+          <Subheader>Status</Subheader>
+          <Status />
+          <Divider />
 
           <List>
             <Subheader>Profile</Subheader>

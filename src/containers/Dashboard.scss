@@ -1,0 +1,24 @@
+.appbar {
+  position: fixed !important;
+  top: 0px;
+  overflow-y: hidden;
+}
+
+.content {
+  margin-top: 58px;
+}
+
+.tabbar {
+  position: fixed !important;
+  bottom: 0px;
+  overflow-y: hidden;
+  height: 50px;
+  width: 100%;
+  left: 0px;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  margin-top: -4px;
+}

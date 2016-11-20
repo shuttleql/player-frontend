@@ -1,8 +1,10 @@
+import s from './Dashboard.scss';
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
 import ViewListIcon from 'material-ui/svg-icons/action/view-list';
@@ -10,8 +12,9 @@ import HomeIcon from 'material-ui/svg-icons/action/home';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Footer from '../components/Footer/footer';
 import tokenManager from '../tokenManager';
+
+import Logo from '../static/image/shuttleql_logo.png';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -42,7 +45,13 @@ class Dashboard extends Component {
       <MuiThemeProvider>
         <div>
           <AppBar
-            title="ShuttleQL Player Dashboard"
+            className={s.appbar}
+            title="ShuttleQL"
+            iconElementLeft={
+              <IconButton>
+              <img src={Logo} className={s.logo}/>
+              </IconButton>
+            }
             iconElementRight={
               <FlatButton
                 label="Logout"
@@ -50,8 +59,10 @@ class Dashboard extends Component {
                 />
             }
           />
-          {this.props.children}
-          <Footer>
+          <div className={s.content}>
+            {this.props.children}
+          </div>
+          <div className={s.tabbar}>
             <Paper zDepth={1}>
               <BottomNavigation selectedIndex={this.state.selectedIndex}>
                 <BottomNavigationItem
@@ -66,7 +77,7 @@ class Dashboard extends Component {
                 />
               </BottomNavigation>
             </Paper>
-          </Footer>
+          </div>
         </div>
       </MuiThemeProvider>
       </div>

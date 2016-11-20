@@ -1,0 +1,18 @@
+.status {
+  width: 90%;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-top: -20px;
+}
+
+.textContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.textContainer * {
+  color: white;
+  display: inline-block;
+}
