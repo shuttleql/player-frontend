@@ -3,13 +3,21 @@ import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Card, CardHeader, CardText, CardMedia} from 'material-ui'
+import {Card, CardHeader, CardText, CardMedia, Chip, Avatar} from 'material-ui';
+import Warning from '../Warning/warning';
 import Court from '../Court/court'
 import Match from '../../actions/matches/match';
+
+import {orange500, blue500, red500, lightGreen500, pink500, orange900, blue900, red900, lightGreen900, pink900} from 'material-ui/styles/colors';
+
+import Team1Icon from 'material-ui/svg-icons/image/looks-one';
+import Team2Icon from 'material-ui/svg-icons/image/looks-two';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import axios from 'axios';
+
+import _ from 'lodash';
 
 class Matches extends Component {
 
@@ -18,39 +26,107 @@ class Matches extends Component {
   }
 
   playersToString = (players) => {
-    var s = '';
-    for (var player of players) {
+    let s = '';
+    for (const player of players) {
       s += player.name + ', ';
     }
     return s.substr(0,s.length-2);
   }
 
   teamDataToString = (court) => {
-    var s = this.playersToString(court.team1) + ', ';
+    let s = this.playersToString(court.team1) + ', ';
     s += this.playersToString(court.team2);
     return s;
+  }
+
+  courtType = (court) => {
+    if (court.team1.length == 1 && court.team2.length == 1) {
+      return 'Singles';
+    }
+    return 'Doubles';
+  }
+
+  colorForPlayer = (player) => {
+    if (player.level == 1) {
+      return orange500;
+    } else if (player.level == 2) {
+      return blue500;
+    } else if (player.level == 3) {
+      return red500;
+    } else if (player.level == 4) {
+      return lightGreen500;
+    } else {
+      return pink500;
+    }
+  }
+
+  backgroundColorForPlayer = (player) => {
+    if (player.level == 1) {
+      return orange900;
+    } else if (player.level == 2) {
+      return blue900;
+    } else if (player.level == 3) {
+      return red900;
+    } else if (player.level == 4) {
+      return lightGreen900;
+    } else {
+      return pink900;
+    }
+  }
+
+  nameForPlayer = (player) => {
+    return player.firstName + ' ' + player.lastName;
+  }
+
+  teamForPlayer = (court, player) => {
+    const inTeam1 = _.some(court.team1, (p) => {
+      return p.id == player.id;
+    });
+    if (inTeam1) {
+      return 'A';
+    } else {
+      return 'B';
+    }
   }
 
   render() {
     return (
       <div>
-        <MuiThemeProvider>
-        <div className={s.formContainer}>
-          {this.props.courtData.map((court) => (
-            <Card key={court.courtName} className={s.formElement}>
-              <CardHeader
-                    title={court.courtName}
-                    subtitle={this.teamDataToString(court)}
-                    showExpandableButton={true}
-                    actAsExpander={true}
-                  />
-              <CardText expandable={true}>
-                <Court courtName={court.courtName} team1={court.team1} team2={court.team2} />
-              </CardText>
-            </Card>
-          ))}
-        </div>
-        </MuiThemeProvider>
+        {this.props.courtData.matches.length==0 ?
+          <Warning message={'There are currently no matches being made, please check when the match making begins'} />
+        :
+          <div className={s.formContainer}>
+            {this.props.courtData.matches.map((court) => (
+              <Card key={court.courtName} className={s.formElement}>
+                <CardHeader
+                      title={court.courtName}
+                      titleStyle={{fontSize: 24}}
+                      subtitle={this.courtType(court)}
+                      subtitleStyle={{fontSize: 20}}
+                      showExpandableButton={false}
+                    />
+                <CardText className={s.headerElement}>
+                    {
+                      _.concat(court.team1, court.team2).map((player) => (
+                        <Chip
+                          key={player.id}
+                          backgroundColor={this.colorForPlayer(player)}
+                        >
+                          <Avatar 
+                            size={24} 
+                            backgroundColor={this.backgroundColorForPlayer(player)}
+                          >
+                            {this.teamForPlayer(court, player)}
+                          </Avatar>
+                          <span>{player.name}</span>
+                        </Chip>
+                      ))
+                    }
+                    </CardText>
+              </Card>
+            ))}
+          </div>
+        }
       </div>
     )
   }

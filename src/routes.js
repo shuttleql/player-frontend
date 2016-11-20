@@ -10,7 +10,8 @@ import tokenManager from './tokenManager';
 function requireAuth(nextState, replace) {
   if (!tokenManager.getToken()) {
     replace({
-      pathname: '/login'
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
     });
   }
 }

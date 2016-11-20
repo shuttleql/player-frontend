@@ -31,6 +31,7 @@ module.exports = {
 	],
 	output: {
 		path: path.join(__dirname, 'public'),
+		publicPath: '/',
 		filename: '[chunkhash].js'
 	},
 	resolve: {
@@ -60,7 +61,8 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/template.html',
-			title: 'ShuttleQL Player Dashboard'
+			title: 'ShuttleQL Player Dashboard',
+			favicon: './logo.png'
 		}),
 		new webpack.optimize.DedupePlugin()
 	],
