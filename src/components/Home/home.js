@@ -17,6 +17,8 @@ import User from '../../actions/users/user';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import MagentaBackground from '../../static/image/magenta_background.jpg';
+
 class Home extends React.Component {
   componentDidMount = () => {
     this.props.fetchUserInfo();
@@ -28,12 +30,10 @@ class Home extends React.Component {
         { _.isEmpty(this.props.userData) ? '' :
         <div>
           <div className={ClassName(s.profileImage)}>
-            <img 
-              src="http://www.destination360.com/north-america/us/california/san-francisco/images/s/golden-gate-bridge.jpg"
-            />
+            <img src={MagentaBackground} />
             <div className={ClassName(s.avatarContainer)}>
               <Avatar
-                size={50}
+                size={80}
               > {this.props.userData.initial} </Avatar>
               <h2>{this.props.userData.name}</h2>
             </div>
@@ -43,7 +43,7 @@ class Home extends React.Component {
           <Status />
           <Divider />
 
-          <List>
+          <List className={s.profileContainer}>
             <Subheader>Profile</Subheader>
             <ListItem
               leftIcon={<PersonIcon/>}

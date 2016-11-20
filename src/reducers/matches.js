@@ -2,7 +2,10 @@ import * as types from '../actions/types';
 
 import _ from 'lodash';
 
-const initialState = [];
+const initialState = {
+  matches: [],
+  queue: []
+};
 
 const getCourtSize = (courts) => {
   let s = 0;

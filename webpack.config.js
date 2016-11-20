@@ -45,6 +45,7 @@ module.exports = {
 	devtool: process.env.WEBPACK_DEVTOOL || 'cheap-module-source-map',
 	output: {
 		path: path.join(__dirname, 'public'),
+		publicPath: '/',
 		filename: 'bundle.js'
 	},
 	resolve: {
@@ -71,7 +72,8 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/template.html',
-			title: 'ShuttleQL Player Dashboard'
+			title: 'ShuttleQL Player Dashboard',
+			favicon: './logo.png'
 		}),
 	],
 	node: {
