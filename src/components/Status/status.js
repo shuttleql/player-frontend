@@ -7,6 +7,10 @@ import { connect } from 'react-redux';
 import {Paper} from 'material-ui';
 import SessionStatus from '../../actions/sessionStatus/sessionStatus';
 import Match from '../../actions/matches/match';
+import User from '../../actions/users/user';
+import Timer from '../Timer/timer';
+
+import {red800, yellow800, green800} from 'material-ui/styles/colors';
 
 import _ from 'lodash';
 
@@ -16,19 +20,80 @@ class Status extends Component {
     this.props.fetchMatches();
   }
 
+  isSessionOpen = () => {
+    return !_.isEmpty(this.props.sessionStatus);
+  }
+
+  isPlaying = () => {
+    var playerId = this.props.user.id;
+    var matches = this.props.courtData.matches;
+    return _.find(matches, (match) => {
+      var teams = _.concat(match.team1, match.team2);
+      return _.find(teams, (player) => {
+        return player.id == playerId;
+      });
+    });
+  }
+
+  colorForState = (hasSession, court) => {
+    var color = red800;
+    if (!hasSession) {
+      color = red800;
+    } else {
+      if (court) {
+        color = green800;
+      } else {
+        color = yellow800;
+      }
+    }
+    return color;
+  }
+
+  textForState = (hasSession, court) => {
+    var text = '';
+    if (!hasSession) {
+      text = 'Club is currently closed';
+    } else {
+      if (court) {
+        text = 'Playing at ' + court.courtName;
+      } else {
+        text = 'Next match in: ';
+      }
+    }
+    return text;
+  }
+
+  timerForState = (hasSession, court) => {
+    return hasSession && !court;
+  }
+
   render() {
-    var sessionOpen = !_.isEmpty(this.props.sessionStatus);
+    var hasSession = this.isSessionOpen();
+    var court = this.isPlaying();
+
+    var colorStyle = {
+      backgroundColor: this.colorForState(hasSession, court)
+    }
+
     return (
-      <div>
+      <div className={this.props.className}>
         <Paper 
-        className={ClassName({
-          [s.status]: true,
-          [s.red]: !sessionOpen,
-          [s.yellow]: sessionOpen,
-          [s.green]: false
-        })}
+        className={ClassName(s.status)}
+        style={colorStyle}
         zDepth={2}>
-          <h3>{sessionOpen ? 'Next match in: ' : 'Club is currently closed'}</h3>
+          <div className={s.textContainer}>
+            <h3 className={s.text}>
+              {this.textForState(hasSession, court)}
+            </h3>
+            {
+              this.timerForState(hasSession, court) ? 
+              <Timer 
+                className={s.text} 
+                startTime={this.props.sessionStatus.currentTime} 
+                maxTime={this.props.sessionStatus.sessionLength} />
+              : ''
+            }
+          </div>
         </Paper>
       </div>
     )
@@ -38,7 +103,8 @@ class Status extends Component {
 const mapStateToProps = (state) => {
   return {
     sessionStatus: state.sessionStatus,
-    courtData: state.matches
+    courtData: state.matches,
+    user: state.users
   };
 };
 

@@ -7,20 +7,12 @@
   margin-top: -20px;
 }
 
-.status h3 {
+.textContainer {
   text-align: center;
-  padding-top: 15px;
+  margin-top: 20px;
+}
+
+.textContainer * {
   color: white;
-}
-
-.red {
-  background-color: #C62828 !important;
-}
-
-.yellow {
-  background-color: #F9A825 !important;
-}
-
-.green {
-  background-color: #2E3D32 !important;
+  display: inline-block;
 }
