@@ -57,14 +57,23 @@ class Status extends Component {
       if (court) {
         text = 'Playing at ' + court.courtName;
       } else {
-        text = 'Next match in: ';
+        var position = this.positionInQueue() + 1;
+        var rounds = Math.ceil(position / this.props.courtData.courtSize);
+        var rString = rounds == 1 ? 'round' : 'rounds';
+        text = 'Playing in ' + rounds + ' ' + rString;
       }
     }
     return text;
   }
 
-  timerForState = (hasSession, court) => {
-    return hasSession && !court;
+  positionInQueue = () => {
+    var playerId = this.props.user.id;
+    var index = -1;
+    _.find(this.props.courtData.queue, (player, idx) => {
+      index = idx;
+      return player.id == playerId;
+    });
+    return index;
   }
 
   render() {
@@ -85,14 +94,6 @@ class Status extends Component {
             <h3 className={s.text}>
               {this.textForState(hasSession, court)}
             </h3>
-            {
-              this.timerForState(hasSession, court) ? 
-              <Timer 
-                className={s.text} 
-                startTime={this.props.sessionStatus.currentTime} 
-                maxTime={this.props.sessionStatus.sessionLength} />
-              : ''
-            }
           </div>
         </Paper>
       </div>

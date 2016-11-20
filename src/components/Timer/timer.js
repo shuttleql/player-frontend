@@ -17,7 +17,6 @@ class Timer extends Component {
   updateTimer = () => {
     var time = this.state.time;
     time = Math.max(time-1, 0);
-    time --;
     if (time < 0) {
       time = this.props.maxTime;
     }
@@ -26,7 +25,6 @@ class Timer extends Component {
 
   pad = (num) => {
     if (num < 10) {
-      console.log(' '+ num);
       return '0'+num;
     }
     return num;
