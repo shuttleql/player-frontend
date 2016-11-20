@@ -10,9 +10,6 @@ import Match from '../../actions/matches/match';
 
 import {orange500, blue500, red500, lightGreen500, pink500, orange900, blue900, red900, lightGreen900, pink900} from 'material-ui/styles/colors';
 
-import Team1Icon from 'material-ui/svg-icons/image/looks-one';
-import Team2Icon from 'material-ui/svg-icons/image/looks-two';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import axios from 'axios';
@@ -47,31 +44,13 @@ class Matches extends Component {
   }
 
   colorForPlayer = (player) => {
-    if (player.level == 1) {
-      return orange500;
-    } else if (player.level == 2) {
-      return blue500;
-    } else if (player.level == 3) {
-      return red500;
-    } else if (player.level == 4) {
-      return lightGreen500;
-    } else {
-      return pink500;
-    }
+    var colors = [orange500, blue500, red500, lightGreen500, pink500];
+    return colors[Math.min(colors.length-1, player.level-1)];
   }
 
   backgroundColorForPlayer = (player) => {
-    if (player.level == 1) {
-      return orange900;
-    } else if (player.level == 2) {
-      return blue900;
-    } else if (player.level == 3) {
-      return red900;
-    } else if (player.level == 4) {
-      return lightGreen900;
-    } else {
-      return pink900;
-    }
+    var colors = [orange900, blue900, red900, lightGreen900, pink900];
+    return colors[Math.min(colors.length-1, player.level-1)];
   }
 
   nameForPlayer = (player) => {
@@ -92,7 +71,7 @@ class Matches extends Component {
   render() {
     return (
       <div>
-        {this.props.courtData.matches.length==0 ?
+        {this.props.courtData.matches.length === 0 ?
           <Warning message={'There are currently no matches being made, please check when the match making begins'} />
         :
           <div className={s.formContainer}>
