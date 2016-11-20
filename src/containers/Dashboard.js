@@ -12,7 +12,6 @@ import HomeIcon from 'material-ui/svg-icons/action/home';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Footer from '../components/Footer/footer';
 import tokenManager from '../tokenManager';
 
 import Logo from '../static/image/shuttleql_logo.png';

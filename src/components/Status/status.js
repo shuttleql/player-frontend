@@ -8,7 +8,6 @@ import {Paper} from 'material-ui';
 import SessionStatus from '../../actions/sessionStatus/sessionStatus';
 import Match from '../../actions/matches/match';
 import User from '../../actions/users/user';
-import Timer from '../Timer/timer';
 
 import {red800, yellow800, green800} from 'material-ui/styles/colors';
 
@@ -25,10 +24,10 @@ class Status extends Component {
   }
 
   isPlaying = () => {
-    var playerId = this.props.user.id;
-    var matches = this.props.courtData.matches;
+    const playerId = this.props.user.id;
+    const matches = this.props.courtData.matches;
     return _.find(matches, (match) => {
-      var teams = _.concat(match.team1, match.team2);
+      const teams = _.concat(match.team1, match.team2);
       return _.find(teams, (player) => {
         return player.id == playerId;
       });
@@ -36,39 +35,35 @@ class Status extends Component {
   }
 
   colorForState = (hasSession, court) => {
-    var color = red800;
     if (!hasSession) {
-      color = red800;
+      return red800;
     } else {
       if (court) {
-        color = green800;
+        return green800;
       } else {
-        color = yellow800;
+        return yellow800;
       }
     }
-    return color;
   }
 
   textForState = (hasSession, court) => {
-    var text = '';
     if (!hasSession) {
-      text = 'Club is currently closed';
+      return 'Club is currently closed';
     } else {
       if (court) {
-        text = 'Playing at ' + court.courtName;
+        return 'Playing at ' + court.courtName;
       } else {
-        var position = this.positionInQueue() + 1;
-        var rounds = Math.ceil(position / this.props.courtData.courtSize);
-        var rString = rounds == 1 ? 'round' : 'rounds';
-        text = 'Playing in ' + rounds + ' ' + rString;
+        const position = this.positionInQueue() + 1;
+        const rounds = Math.ceil(position / this.props.courtData.courtSize);
+        const rString = rounds == 1 ? 'round' : 'rounds';
+        return 'Playing in ' + rounds + ' ' + rString;
       }
     }
-    return text;
   }
 
   positionInQueue = () => {
-    var playerId = this.props.user.id;
-    var index = -1;
+    const playerId = this.props.user.id;
+    let index = -1;
     _.find(this.props.courtData.queue, (player, idx) => {
       index = idx;
       return player.id == playerId;
@@ -77,10 +72,10 @@ class Status extends Component {
   }
 
   render() {
-    var hasSession = this.isSessionOpen();
-    var court = this.isPlaying();
+    const hasSession = this.isSessionOpen();
+    const court = this.isPlaying();
 
-    var colorStyle = {
+    const colorStyle = {
       backgroundColor: this.colorForState(hasSession, court)
     }
 

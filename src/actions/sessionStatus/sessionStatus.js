@@ -12,17 +12,9 @@ export default {
         .get(`${config.GATEWAY_URL}/shared/session/current`)
         .then((res) => {
           if (res.status === 200) {
-            var data = res.data;
-            if (!_.isEmpty(res.data)) {
-              data = {
-                ...data,
-                currentTime: 500
-              }
-            }
-
             dispatch({
               type: types.SESSION_STATUS,
-              sessionStatus: data
+              sessionStatus: res.data
             });
           }
         })

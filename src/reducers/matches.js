@@ -5,9 +5,9 @@ import _ from 'lodash';
 const initialState = [];
 
 const getCourtSize = (courts) => {
-  var s = 0;
+  let s = 0;
   _.forEach(courts, (court) => {
-    var teams = _.concat(court.team1, court.team2);
+    const teams = _.concat(court.team1, court.team2);
     _.forEach(teams, (player) => {
       s ++;
     });
