@@ -5,16 +5,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Card, CardHeader, CardText, CardMedia, Chip, Avatar} from 'material-ui';
 import Warning from '../Warning/warning';
-import Court from '../Court/court'
 import Match from '../../actions/matches/match';
 import User from '../../actions/users/user';
-
 import {orange100, blue100, red100, lightGreen100, pink100, orange500, blue500, red500, lightGreen500, pink500, orange900, blue900, red900, lightGreen900, pink900} from 'material-ui/styles/colors';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import axios from 'axios';
-
 import _ from 'lodash';
 
 class Matches extends Component {

@@ -3,15 +3,8 @@ import styles from '../../css/index.scss';
 import ClassName from 'classname';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import {grey500} from 'material-ui/styles/colors';
-
+import { grey500 } from 'material-ui/styles/colors';
 import WarningIcon from 'material-ui/svg-icons/action/info';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import axios from 'axios';
-
-import _ from 'lodash';
 
 class Warning extends Component {
 
@@ -30,15 +23,19 @@ class Warning extends Component {
   }
 }
 
+Warning.propTypes = {
+  message: React.PropTypes.string
+}
+
 const mapStateToProps = (state) => {
   return {
-    
+
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+
   };
 };
 
@@ -46,7 +43,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Warning);
-
-Warning.propTypes = {
-  message: React.PropTypes.string
-}
