@@ -6,12 +6,6 @@ import Warning from '../Warning/warning';
 import { fetchAnnouncements } from '../../actions/announcements/announcements';
 
 class Announcements extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount = () => {
     this.props.fetchAnnouncements();
   }

@@ -4,20 +4,20 @@ const initialState = [];
 
 const timeSince = (date) => {
   const seconds = Math.floor((new Date() - date) / 1000);
-  let interval = Math.floor(seconds / 31536000);
+  let interval = Math.floor(seconds / (365 * 24 * 60 * 60));
 
   if (interval > 1) {
     return interval + " years ago";
   }
-  interval = Math.floor(seconds / 2592000);
+  interval = Math.floor(seconds / (30 * 24 * 60 * 60));
   if (interval > 1) {
     return interval + " months ago";
   }
-  interval = Math.floor(seconds / 86400);
+  interval = Math.floor(seconds / (24 * 60 * 60));
   if (interval > 1) {
     return interval + " days ago";
   }
-  interval = Math.floor(seconds / 3600);
+  interval = Math.floor(seconds / (60 * 60));
   if (interval > 1) {
     return interval + " hours ago";
   }
