@@ -22,15 +22,13 @@ class Matches extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      levelColors: [
-        { main: orange500, background: orange900, court: orange100 },
-        { main: blue500, background: blue900, court: blue100 },
-        { main: red500, background: red900, court: red100 },
-        { main: lightGreen500, background: lightGreen900, court: lightGreen100 },
-        { main: pink500, background: pink900, court: pink100 }
-      ]
-    }
+    this.levelColors = [
+      { main: orange500, background: orange900, court: orange100 },
+      { main: blue500, background: blue900, court: blue100 },
+      { main: red500, background: red900, court: red100 },
+      { main: lightGreen500, background: lightGreen900, court: lightGreen100 },
+      { main: pink500, background: pink900, court: pink100 }
+    ];
   }
 
   componentDidMount = () => {
@@ -39,18 +37,18 @@ class Matches extends Component {
   }
 
   colorForPlayer = (player) => {
-    return this.state.levelColors[player.level - 1].main;
+    return this.levelColors[player.level - 1].main;
   }
 
   backgroundColorForPlayer = (player) => {
-    return this.state.levelColors[player.level - 1].background;
+    return this.levelColors[player.level - 1].background;
   }
 
   courtColorForCourt = (court) => {
     const players = _.concat(court.team1, court.team2);
     const isPlaying = _.some(players, (player) => { return player.name === this.props.userData.name });
     if (isPlaying) {
-      const courtColor = this.state.levelColors[this.props.userData.level - 1].court;
+      const courtColor = this.levelColors[this.props.userData.level - 1].court;
       return { backgroundColor: courtColor };
     } else {
       return {};
