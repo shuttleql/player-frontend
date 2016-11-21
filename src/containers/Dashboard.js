@@ -19,10 +19,13 @@ import Logo from '../static/image/shuttleql_logo.png';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    
     this.state = {
       selectedIndex: 0
     };
+  }
+
+  componentDidMount() {
+    browserHistory.listen(location => this.onLocationChange(location));
   }
 
   onLogoutButtonClick = (e) => {
@@ -36,6 +39,18 @@ class Dashboard extends Component {
       browserHistory.push("/dashboard/home");
     } else if (index == 1) {
       browserHistory.push("/dashboard/matches");
+    }
+  }
+
+  onLocationChange = (location) => {
+    const path = location.pathname;
+    const action = location.action;
+    if (action === 'PUSH') return;
+
+    if (path.indexOf('home') !== -1) {
+      this.setState({ selectedIndex: 0 });
+    } else if (path.indexOf('matches') !== -1) {
+      this.setState({ selectedIndex: 1 });
     }
   }
 
