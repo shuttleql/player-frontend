@@ -44,7 +44,7 @@ class Matches extends Component {
     return this.levelColors[player.level - 1].background;
   }
 
-  courtColorForCourt = (court) => {
+  courtStyleForCourt = (court) => {
     const players = _.concat(court.team1, court.team2);
     const isPlaying = _.some(players, (player) => { return player.name === this.props.userData.name });
     if (isPlaying) {
@@ -74,7 +74,7 @@ class Matches extends Component {
         :
           <div className={s.formContainer}>
             {this.props.courtData.matches.map((court) => (
-              <Card key={court.courtName} style={this.courtColorForCourt(court)} className={s.formElement}>
+              <Card key={court.courtName} style={this.courtStyleForCourt(court)} className={s.formElement}>
                 <CardHeader
                       title={court.courtName}
                       titleStyle={{fontSize: 24}}
