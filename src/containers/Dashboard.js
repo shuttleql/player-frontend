@@ -9,11 +9,9 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import Paper from 'material-ui/Paper';
 import ViewListIcon from 'material-ui/svg-icons/action/view-list';
 import HomeIcon from 'material-ui/svg-icons/action/home';
-
+import SocialNotifications from 'material-ui/svg-icons/social/notifications';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import tokenManager from '../tokenManager';
-
 import Logo from '../static/image/shuttleql_logo.png';
 
 class Dashboard extends Component {
@@ -39,6 +37,8 @@ class Dashboard extends Component {
       browserHistory.push("/dashboard/home");
     } else if (index == 1) {
       browserHistory.push("/dashboard/matches");
+    } else if (index == 2) {
+      browserHistory.push("/dashboard/announcements");
     }
   }
 
@@ -51,6 +51,8 @@ class Dashboard extends Component {
       this.setState({ selectedIndex: 0 });
     } else if (path.indexOf('matches') !== -1) {
       this.setState({ selectedIndex: 1 });
+    } else if (path.indexOf('announcements') !== -1) {
+      this.setState({ selectedIndex: 2 });
     }
   }
 
@@ -89,6 +91,11 @@ class Dashboard extends Component {
                   label="Matches"
                   icon={<ViewListIcon />}
                   onTouchTap={() => this.onBottomMenuItemClick(1)}
+                />
+                <BottomNavigationItem
+                  label="Announcements"
+                  icon={<SocialNotifications />}
+                  onTouchTap={() => this.onBottomMenuItemClick(2)}
                 />
               </BottomNavigation>
             </Paper>

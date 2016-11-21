@@ -4,12 +4,9 @@ import ClassName from 'classname';
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {TextField, RaisedButton} from 'material-ui';
 import Register from '../Register/register';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import axios from 'axios';
 import Auth from '../../actions/auth/auth';
 
 class Login extends Component {

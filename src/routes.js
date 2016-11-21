@@ -5,6 +5,7 @@ import Login from './components/Login/login';
 import Dashboard from './containers/Dashboard';
 import Home from './components/Home/home';
 import Matches from './components/Matches/matches';
+import Announcements from './components/Announcements/announcements';
 import tokenManager from './tokenManager';
 
 function requireAuth(nextState, replace) {
@@ -24,6 +25,7 @@ export default (
       <IndexRedirect to="home" />
       <Route path="home" component={Home} onEnter={requireAuth} />
       <Route path="matches" component={Matches} onEnter={requireAuth} />
+      <Route path="announcements" component={Announcements} onEnter={requireAuth} />
     </Route>
   </Route>
 );
