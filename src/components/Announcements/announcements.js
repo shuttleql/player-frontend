@@ -1,3 +1,4 @@
+import s from './announcements.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {List, ListItem} from 'material-ui/List';
@@ -14,7 +15,7 @@ class Announcements extends Component {
     return (
       <div>
         { this.props.announcements.length ? (
-          <List disabled={true}>
+          <List className={s.listContainer} disabled={true}>
             <Subheader>Admin Announcements</Subheader>
             {
               this.props.announcements.map(announcement => (

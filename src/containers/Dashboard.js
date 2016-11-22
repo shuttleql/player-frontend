@@ -13,10 +13,12 @@ import SocialNotifications from 'material-ui/svg-icons/social/notifications';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import tokenManager from '../tokenManager';
 import Logo from '../static/image/shuttleql_logo.png';
+import Snackbar from 'material-ui/Snackbar';
 import Config from '../config';
 import User from '../actions/users/user';
 import SessionStatus from '../actions/sessionStatus/sessionStatus';
 import Match from '../actions/matches/match';
+import { fetchAnnouncements } from '../actions/announcements/announcements';
 const io = require('socket.io-client/socket.io');
 const socket = io(Config.PIGEON_SOCKET_URL, {jsonp: false});
 
@@ -24,7 +26,9 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: 0
+      selectedIndex: 0,
+      open: false,
+      announcement: ''
     };
   }
 
@@ -49,6 +53,15 @@ class Dashboard extends Component {
       }
     });
 
+    socket.on('announcement', (data) => {
+      this.setState({
+        announcement: data.message,
+        open: true
+      });
+
+      this.props.fetchAnnouncements();
+    })
+
     browserHistory.listen(location => this.onLocationChange(location));
   }
 
@@ -67,6 +80,13 @@ class Dashboard extends Component {
       browserHistory.push("/dashboard/announcements");
     }
   }
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
 
   onLocationChange = (location) => {
     const path = location.pathname;
@@ -104,6 +124,17 @@ class Dashboard extends Component {
           />
           <div className={s.content}>
             {this.props.children}
+            <Snackbar
+              open={this.state.open}
+              message={this.state.announcement}
+              autoHideDuration={4000}
+              onRequestClose={this.handleRequestClose}
+              onActionTouchTap={() => {
+                //TODO: Investigate why this doesn't work
+                // this.setState({selectedIndex: 2});
+                // browserHistory.push("/dashboard/announcements");
+              }}
+            />
           </div>
           <div className={s.tabbar}>
             <Paper zDepth={3}>
@@ -152,6 +183,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchMatches: () => {
       dispatch(Match.fetchSessionMatches());
+    },
+    fetchAnnouncements: () => {
+      dispatch(fetchAnnouncements(0, 10000));
     }
   };
 };
