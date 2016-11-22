@@ -13,6 +13,12 @@ import SocialNotifications from 'material-ui/svg-icons/social/notifications';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import tokenManager from '../tokenManager';
 import Logo from '../static/image/shuttleql_logo.png';
+import Config from '../config';
+import User from '../actions/users/user';
+import SessionStatus from '../actions/sessionStatus/sessionStatus';
+import Match from '../actions/matches/match';
+const io = require('socket.io-client/socket.io');
+const socket = io(Config.PIGEON_SOCKET_URL, {jsonp: false});
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,6 +29,26 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    socket.on('connect', () => {
+      console.log('Connected to Pigeon.')
+    });
+
+    socket.on('update', (data) => {
+      console.log('Stale data, resource: ', data);
+
+      switch (data.resource) {
+        case 'users':
+          this.props.fetchUserInfo();
+          break;
+        case 'session':
+          this.props.fetchSessionStatus();
+          break;
+        case 'matches':
+          this.props.fetchMatches();
+          break;
+      }
+    });
+
     browserHistory.listen(location => this.onLocationChange(location));
   }
 
@@ -118,6 +144,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchUserInfo: () => {
+      dispatch(User.fetchUserInfo());
+    },
+    fetchSessionStatus: () => {
+      dispatch(SessionStatus.fetchSessionStatus());
+    },
+    fetchMatches: () => {
+      dispatch(Match.fetchSessionMatches());
+    }
   };
 };
 
