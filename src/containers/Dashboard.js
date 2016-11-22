@@ -80,7 +80,7 @@ class Dashboard extends Component {
             {this.props.children}
           </div>
           <div className={s.tabbar}>
-            <Paper zDepth={1}>
+            <Paper zDepth={3}>
               <BottomNavigation selectedIndex={this.state.selectedIndex}>
                 <BottomNavigationItem
                   label="Home"
