@@ -54,9 +54,15 @@ class Status extends Component {
         return 'Playing at ' + court.courtName;
       } else {
         const position = this.positionInQueue() + 1;
-        const rounds = Math.ceil(position / this.props.courtData.courtSize);
-        const rString = rounds == 1 ? 'round' : 'rounds';
-        return 'Playing in ' + rounds + ' ' + rString;
+        if (position > 0) {
+          const rounds = Math.ceil(position / this.props.courtData.courtSize);
+          const rString = rounds == 1 ? 'round' : 'rounds';
+          return 'Playing in ' + rounds + ' ' + rString;
+        } else {
+          // Ideally we'll want to differentiate between checked in/not checked
+          // in here too
+          return 'Waiting for matches to start';
+        }
       }
     }
   }
@@ -81,7 +87,7 @@ class Status extends Component {
 
     return (
       <div className={this.props.className}>
-        <Paper 
+        <Paper
         className={ClassName(s.status)}
         style={colorStyle}
         zDepth={2}>
